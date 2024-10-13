@@ -43,7 +43,13 @@ const LoginForm = () => {
 
   return (
     <>
-      <main className="w-screen h-screen bg-darkSecondary flex justify-center items-center">
+      <main className="w-screen h-screen bg-darkSecondary flex justify-center items-center relative">
+        {/* Section Starts */}
+
+        <div className="absolute top-0 right-0 mt-4 mr-6">
+          <Button1 onClick={() => navigate("/")}>Home</Button1>
+        </div>
+
         <section className="w-fit h-fit bg-slate-950 rounded-2xl shadow-md shadow-slate-500 flex flex-col items-center gap-10 px-10 py-16">
           <h2 className="text-2xl md:text-3xl text-darkAccent font-bold">
             Admin Login
@@ -63,7 +69,7 @@ const LoginForm = () => {
             onChange={handleInput}
           />
 
-          <Button1 onClick={handleClick}>Login</Button1>
+          <Button1 onClick={handleClick}>Log in</Button1>
         </section>
       </main>
     </>
