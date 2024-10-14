@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
@@ -43,6 +43,29 @@ const ProtectRoute = ({ children }) => {
 
 function App() {
   const { getUser, isAuthenticated } = useUserStore();
+  const [toastPosition, setToastPosition] = useState("top-right");
+
+  useEffect(() => {
+    // Function to set toast position based on screen width
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setToastPosition("top-center");
+      } else {
+        setToastPosition("top-right");
+      }
+    };
+
+    // Call the function on mount
+    handleResize();
+
+    // Attach event listener to window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     getUser();
@@ -70,7 +93,7 @@ function App() {
           }
         />
       </Routes>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position={toastPosition} reverseOrder={false} />
     </>
   );
 }
